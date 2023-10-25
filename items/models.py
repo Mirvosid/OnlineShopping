@@ -5,9 +5,9 @@ from shopcard.models import ShopCard
 
 # Create your models here.
 class Items(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False, null=False, primary_key=True)
-    product_id = models.ForeignKey(Product,null=True, blank=True, on_delete=models.CASCADE)
-    shopcard_id = models.ForeignKey(ShopCard,null=True, blank=True, on_delete=models.CASCADE)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, editable=False, null=False)
+    product_id = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE)
+    shopcard_id = models.ForeignKey(ShopCard, null=True, blank=True, on_delete=models.CASCADE)
     sell_date = models.DateTimeField()
 
     def __str__(self) -> str:

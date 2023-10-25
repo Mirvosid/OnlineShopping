@@ -4,7 +4,7 @@ import uuid
 
 # Create your models here.
 class Product(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False, null=False, primary_key=True)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, editable=False, null=False)
     name = models.CharField(max_length=300, null=True, blank=True)
     category_id = models.ForeignKey(Category,null=True, blank=True, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=20, decimal_places=5)
