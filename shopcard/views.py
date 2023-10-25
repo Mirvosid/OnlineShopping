@@ -9,14 +9,14 @@ from django.db import models
 from drf_yasg.utils import swagger_auto_schema
 
 
-class ShopCardCreated(views.APIView):
+class CreatedShopCard(views.APIView):
     queryset = ShopCard.objects.all()
     serializer_class = ShopCardSerializer
     @swagger_auto_schema(
         request_body=ShopCardSerializer,  
         responses={201: "CREATED"},
     )
-    def post(self, request, *args, **kvargs):
+    def post(self, request):
         data = request.data
         serializer = ShopCardSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -25,12 +25,12 @@ class ShopCardCreated(views.APIView):
 
 
 
-class ShopCardDelete(views.APIView):
+class DeleteShopCard(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can delete history of purchasing",
         operation_summary=""
     )
-    def delete(self, request, pk, *args, **kvargs):
+    def delete(self, request, pk):
         try:
             instance = ShopCard.objects.get(id=pk)
             instance.delete()
@@ -39,7 +39,7 @@ class ShopCardDelete(views.APIView):
             return Response({404: "OBJECT DOES NOT FOUND!"}, status=status.HTTP_404_NOT_FOUND)
 
         
-class ShopCardList(views.APIView):
+class AllShopCard(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can see all of the purchasing",
         operation_summary=""
@@ -52,7 +52,7 @@ class ShopCardList(views.APIView):
 
         
 
-class ShopCardHistoryAPI(views.APIView):
+class HistoryShopCard(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can get history of purchasing",
         operation_summary=""
@@ -67,12 +67,12 @@ class ShopCardHistoryAPI(views.APIView):
         
 
         
-class ShopCardRetriev(views.APIView):
+class RetrieveShopCard(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can retrieve purchasing of shopcard!",
         operation_summary=""
     )
-    def get(self, request, pk, *args, **kvargs):
+    def get(self, request, pk):
         try:
             instance = ShopCard.objects.get(id=pk)
             serializer = ShopCardSerializer(instance)
@@ -81,7 +81,7 @@ class ShopCardRetriev(views.APIView):
             return Response({404: "OBJECT DOES NOT FOUND!"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class CustomerPurchase(views.APIView):
+class CustomerPurchases(views.APIView):
     @swagger_auto_schema(
         operation_description="In thing page you can check purchasing sum!",
         operation_summary=""
@@ -97,13 +97,13 @@ class CustomerPurchase(views.APIView):
             return JsonResponse({404: "OBJECT DOES NOT FOUND!"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ShopCardUpdate(views.APIView):
+class UpdateShopCard(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can update purchasing ",
         operation_summary="",
         request_body=ShopCardSerializer
     )
-    def put(self, request, pk, *args, **kvargs):
+    def put(self, request, pk):
         try:
             data = request.data
             instance = ShopCard.objects.get(id=pk)

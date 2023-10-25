@@ -7,14 +7,14 @@ from datetime import datetime
 from drf_yasg.utils import swagger_auto_schema
 
 
-class ProductCreated(views.APIView):
+class CreatedProducts(views.APIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     @swagger_auto_schema(
         request_body=ProductSerializer,  
         responses={201: "CREATED!"},
     )
-    def post(self, request, *args, **kvargs):
+    def post(self, request):
         data = request.data
         serializer = ProductSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -22,12 +22,12 @@ class ProductCreated(views.APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
-class ProductDelete(views.APIView):
+class DeleteProducts(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can delete product",
         operation_summary=""
     )
-    def delete(self, request, pk, *args, **kvargs):
+    def delete(self, request, pk):
         try:
             instance = Product.objects.get(id=pk)
             instance.delete()
@@ -36,7 +36,7 @@ class ProductDelete(views.APIView):
             return Response({404: "OBJECT DOES NOT FOUND!"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ProductList(views.APIView):
+class AllProducts(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can see all of the products!",
         operation_summary=""
@@ -48,12 +48,12 @@ class ProductList(views.APIView):
 
 
 
-class ProductRetriev(views.APIView):
+class RetrieveProducts(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can retrieve product!",
         operation_summary=""
     )
-    def get(self, request, pk, *args, **kvargs):
+    def get(self, request, pk):
         try:
             instance = Product.objects.get(id=pk)
             serializer = ProductSerializer(instance)
@@ -80,13 +80,13 @@ class ExpiredProducts(views.APIView):
         ]
         return Response(data)
 
-class ProductUpdate(views.APIView):
+class UpdateProducts(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can update products!",
         operation_summary="",
         request_body=ProductSerializer
     )
-    def put(self, request, pk, *args, **kvargs):
+    def put(self, request, pk):
         try:
             data = request.data
             instance = Product.objects.get(id=pk)

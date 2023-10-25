@@ -6,7 +6,7 @@ from rest_framework import status, views
 from drf_yasg.utils import swagger_auto_schema
 
 
-class CustomerCreated(views.APIView):
+class CreatedCustomer(views.APIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     @swagger_auto_schema(
@@ -14,7 +14,7 @@ class CustomerCreated(views.APIView):
         operation_description="In this page customer is created!",  
         responses={201: "CREATED!"},
     )
-    def post(self, request, *args, **kvargs):
+    def post(self, request):
         data = request.data
         serializer = CustomerSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -24,12 +24,12 @@ class CustomerCreated(views.APIView):
 
 
         
-class CustomDelete(views.APIView):
+class DeleteCustomer(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can delete customer's details!",
         operation_summary=""
     )
-    def delete(self, request, pk, *args, **kwargs):
+    def delete(self, request, pk):
         try:
             instance = Customer.objects.get(id=pk)
             instance.delete()
@@ -39,7 +39,7 @@ class CustomDelete(views.APIView):
 
 
 
-class CustomerList(views.APIView):
+class AllCustomer(views.APIView):
     @swagger_auto_schema(
         operation_description=" In this page you can see all of the customers!",
         operation_summary=""
@@ -52,12 +52,12 @@ class CustomerList(views.APIView):
 
 
     
-class CustomRetriev(views.APIView):
+class RetrieveCustomer(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can retrieve customer's details!",
         operation_summary=""
     )
-    def get(self, request, pk, *args, **kvargs):
+    def get(self, request, pk):
         try:
             instance = Customer.objects.get(id=pk) 
             serializer = CustomerSerializer(instance)
@@ -66,13 +66,13 @@ class CustomRetriev(views.APIView):
             return Response({404: "OBJECT DOES NOT FOUND!"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class CustomUpdate(views.APIView):
+class UpdateCustomer(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can update cutomer's details!",
         operation_summary="",
         request_body=CustomerSerializer
     )
-    def put(self, request, pk, *args, **kvargs):
+    def put(self, request, pk):
         try:
             data = request.data
             instance = Customer.objects.get(id=pk)

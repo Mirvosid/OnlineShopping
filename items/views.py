@@ -6,7 +6,7 @@ from rest_framework import status, views
 from drf_yasg.utils import swagger_auto_schema
 
 
-class ItemCreated(views.APIView):
+class CreatedItems(views.APIView):
     queryset = Items.objects.all()
     serializer_class = ItemSerializer
     @swagger_auto_schema(
@@ -14,7 +14,7 @@ class ItemCreated(views.APIView):
         operation_description="In this page items is created!", 
         responses={201: "CREATED!"},
     )
-    def post(self, request, *args, **kvargs):
+    def post(self, request):
         data = request.data
         serializer = ItemSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -24,12 +24,12 @@ class ItemCreated(views.APIView):
 
 
 
-class ItemDelete(views.APIView):
+class DeleteItems(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can delete items!",
         operation_summary=""
     )
-    def delete(self, request, pk, *args, **kvargs):
+    def delete(self, request, pk):
         try:
             instance = Items.objects.get(id=pk)
             instance.delete()
@@ -38,7 +38,7 @@ class ItemDelete(views.APIView):
             return Response({404: "OBJECT DOES NOT FOUND!"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ItemList(views.APIView):
+class AllItems(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can see all of the items!",
         operation_summary=""
@@ -51,12 +51,12 @@ class ItemList(views.APIView):
 
 
 
-class ItemRetriev(views.APIView):
+class RetrieveItems(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can retrieve items!",
         operation_summary=""
     )
-    def get(self, request, pk, *args, **kvargs):
+    def get(self, request, pk):
         try:
             instance = Items.objects.get(id=pk)
             serializer = ItemSerializer(instance)
@@ -65,13 +65,13 @@ class ItemRetriev(views.APIView):
             return Response({404: "OBJECT DOES NOT FOUND"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ItemUpdate(views.APIView):
+class UpdateItems(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can update items!",
         operation_summary="",
         request_body=ItemSerializer
     )
-    def put(self, request, pk, *args, **kvargs):
+    def put(self, request, pk):
         try:
             data = request.data
             instance = Items.objects.get(id=pk)

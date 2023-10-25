@@ -1,15 +1,15 @@
 from django.urls import path
-from .views import ProductCreated, ProductList, ProductRetriev, ProductUpdate, ProductDelete, CalculateTotalPrice, ExpiredProducts
+from .views import CreatedProducts,  CalculateTotalPrice, UpdateProducts, AllProducts, RetrieveProducts, DeleteProducts, ExpiredProducts
 
 
 
 urlpatterns = [
-    path('expire_product/', ExpiredProducts.as_view()),
-    path('product_created/', ProductCreated.as_view()),
-    path('product_update/<uuid:id>/', ProductUpdate.as_view()),
-    path('product_retriev/<uuid:pk>/', ProductRetriev.as_view()),
-    path('product_list/', ProductList.as_view()),
-    path('product_delete/<uuid:pk>/', ProductDelete.as_view()),
-    path('sum_total_products/', CalculateTotalPrice.as_view()),
+    path('expired_products/', ExpiredProducts.as_view()),
+    path('created_products/', CreatedProducts.as_view()),
+    path('update_products/<uuid:id>/', UpdateProducts.as_view()),
+    path('retrieve_products/<uuid:pk>/', RetrieveProducts.as_view()),
+    path('all_products/', AllProducts.as_view()),
+    path('delete_products/<uuid:pk>/', DeleteProducts.as_view()),
+    path('total_price/', CalculateTotalPrice.as_view()),
 ]
 

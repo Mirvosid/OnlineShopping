@@ -8,8 +8,7 @@ from django.db.models import Count
 from drf_yasg.utils import swagger_auto_schema
 
 
-
-class CategoryCreated(views.APIView):
+class CreatedCategory(views.APIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     @swagger_auto_schema(
@@ -17,7 +16,7 @@ class CategoryCreated(views.APIView):
         operation_description="In this page category is created!",
         responses={201: "CREATED!"},
     )
-    def post(self, request, *args, **kvargs):
+    def post(self, request):
         data = request.data
         serializer = CategorySerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -26,12 +25,12 @@ class CategoryCreated(views.APIView):
     
 
 
-class categoryDelete(views.APIView):
+class DeletedCategory(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can delete categroy!",
         operation_summary=""
     )
-    def delete(self, request, pk, *args, **kvargs):
+    def delete(self, request, pk):
         try:
             instance = Category.objects.get(id=pk)
             instance.delete()
@@ -41,7 +40,7 @@ class categoryDelete(views.APIView):
 
 
 
-class CategoryList(views.APIView):
+class AllCategory(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can see all of the categories!",
         operation_summary=""
@@ -54,12 +53,12 @@ class CategoryList(views.APIView):
         
 
 
-class CategoryRetriev(views.APIView):
+class RetrieveCategory(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can retrieve category! ",
         operation_summary=""
     )
-    def get(self, request, pk, *args, **kvargs):
+    def get(self, request, pk):
         try:
             instance = Category.objects.get(id=pk)
             serializer = CategorySerializer(instance)
@@ -69,7 +68,7 @@ class CategoryRetriev(views.APIView):
 
 
 
-class MostSoldProductsAPIView(views.APIView):
+class MostSoldProducts(views.APIView):
     @swagger_auto_schema(
         operation_description="In this page you can find a list of the best selling products!",
         operation_summary=""
@@ -88,13 +87,13 @@ class MostSoldProductsAPIView(views.APIView):
 
         return Response(result)
 
-class CategoryUpdate(views.APIView):
+class UpdateCategory(views.APIView):
     @swagger_auto_schema(
         operation_description=" In this page you can update category!",
         operation_summary="",
         request_body=CategorySerializer
     )
-    def put(self, request, pk, *args, **kvargs):
+    def put(self, request, pk):
         try:
             data = request.data
             instance = Category.objects.get(id=pk)

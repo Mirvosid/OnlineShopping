@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import CustomerCreated, CustomRetriev, CustomerList, CustomUpdate, CustomDelete
+from .views import CreatedCustomer, DeleteCustomer, RetrieveCustomer, AllCustomer, UpdateCustomer
 
 urlpatterns = [
-    path('customer_created/', CustomerCreated.as_view()),
-    path('customer_update/<uuid:pk>/', CustomUpdate.as_view()),
-    path('customer_list/', CustomerList.as_view()),
-    path('customer_delete/<uuid:pk>/', CustomDelete.as_view()),
-    path('customer_retriev/<uuid:pk>/', CustomRetriev.as_view()),
+    path('created_customer/', CreatedCustomer.as_view()),
+    path('update_customer/<uuid:pk>/', UpdateCustomer.as_view()),
+    path('all_customer/', AllCustomer.as_view()),
+    path('delete_customer/<uuid:pk>/', DeleteCustomer.as_view()),
+    path('retrieve_customer/<uuid:pk>/', RetrieveCustomer.as_view()),
 ]

@@ -1,12 +1,12 @@
 from django.urls import path
-from .views import CategoryCreated, CategoryList, CategoryRetriev, CategoryUpdate, categoryDelete, MostSoldProductsAPIView
+from .views import CreatedCategory, DeletedCategory, RetrieveCategory, UpdateCategory, AllCategory, MostSoldProducts
 
 
 urlpatterns = [
-    path('category_update/<uuid:pk>/', CategoryUpdate.as_view()),
-    path('category_created/', CategoryCreated.as_view()),
-    path('sold_products/', MostSoldProductsAPIView.as_view()),
-    path('category_retriev/<uuid:pk>/', CategoryRetriev.as_view()),   
-    path('category_delete/<uuid:pk>/', categoryDelete.as_view()),
-    path('category_list/', CategoryList.as_view()),
+    path('update_category/<uuid:pk>/', UpdateCategory.as_view()),
+    path('created_category/', CreatedCategory.as_view()),
+    path('most_sold_products/', MostSoldProducts.as_view()),
+    path('retrieve_category/<uuid:pk>/', RetrieveCategory.as_view()),   
+    path('delete_category/<uuid:pk>/', DeletedCategory.as_view()),
+    path('all_category/', AllCategory.as_view()),
 ]
