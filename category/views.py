@@ -78,9 +78,7 @@ class MostSoldProducts(views.APIView):
         result = []
 
         for category in categories:
-            most_sold_product = Product.objects.filter(category=category).annotate(
-                sold_count=Count('items')
-            ).order_by('-sold_count').first()
+            most_sold_product = Product.objects.filter(category=categories).annotate(sold_count=Count('items')).order_by('-sold_count').first()
 
             if most_sold_product and most_sold_product.sold_count > 0:
                 result.append({'category': category.name, 'product': most_sold_product.name, 'sold_count': most_sold_product.sold_count})
